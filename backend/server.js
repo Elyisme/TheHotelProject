@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const cors = require("cors");
+require("dotenv").config(); // Load environment variables from .env file
 
 const app = express();
 
@@ -9,12 +10,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve frontend from "public" folder (change 'frontend' if necessary)
-app.use(express.static(path.join(__dirname, "public")));
+// Serve frontend from "frontend" folder
+app.use(express.static(path.join(__dirname, "frontend")));
 
-// MongoDB connection (update with your MongoDB URI)
-const mongoURI =
-  "mongodb+srv://ThirdUser:ThirdUseR@cluster0.euxvmtf.mongodb.net/thehotelproject?retryWrites=true&w=majority&appName=Cluster0";
+// MongoDB connection (using connection string from .env file)
+const mongoURI = process.env.MONGO_URI;
 mongoose
   .connect(mongoURI)
   .then(() => console.log("MongoDB connected"))
