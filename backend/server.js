@@ -2,7 +2,16 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const cors = require("cors");
-require("dotenv").config(); // Load environment variables from .env file
+require("dotenv").config({ path: "./backend/.env" }); // Load environment variables from .env file
+
+// Debugging line to check if the MONGO_URI is loaded
+console.log("MONGO_URI:", process.env.MONGO_URI); // Check this output
+
+if (!process.env.MONGO_URI) {
+  console.error("MONGO_URI is not defined in .env file.");
+} else {
+  console.log("MongoDB URI found.");
+}
 
 const app = express();
 
@@ -14,17 +23,19 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "frontend")));
 
 // MongoDB connection (using connection string from .env file)
-const mongoURI = process.env.MONGO_URI;
+const mongoURI = process.env.MONGO_URI; // This should now correctly get the URI
+
 mongoose
   .connect(mongoURI)
   .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
+  .catch((err) => console.error("MongoDB connection error:", err)); // Improved error logging
 
 // Define Routes (add more routes as needed)
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "frontend", "index.html")); // Corrected to match frontend folder
 });
 
+// Example booking route
 app.post("/book-room", (req, res) => {
   const { roomNumber, customerName, bookingDate } = req.body;
 
