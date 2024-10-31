@@ -1,0 +1,46 @@
+<!-- confirmation.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Booking Confirmation</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <h2>Booking Confirmation</h2>
+    <p>
+      Check-in Date:
+      <!-- dynamic date here -->
+    </p>
+    <p>
+      Check-out Date:
+      <!-- dynamic date here -->
+    </p>
+    <p>
+      Number of Adults:
+      <!-- dynamic data -->
+    </p>
+    <p>
+      Number of Children:
+      <!-- dynamic data -->
+    </p>
+
+    <button id="confirmBookingBtn">Confirm</button>
+    <button id="cancelBookingBtn">Cancel</button>
+  </body>
+</html>
+
+<script>
+  document
+    .getElementById("confirmBookingBtn")
+    .addEventListener("click", function () {
+      alert("Booking confirmed!");
+      // Redirect to a 'booking success' page or homepage
+    });
+
+  document
+    .getElementById("cancelBookingBtn")
+    .addEventListener("click", function () {
+      alert("Booking canceled.");
+      window.location.href = "index.html"; // Redirect to home page
+    });
+</script>
