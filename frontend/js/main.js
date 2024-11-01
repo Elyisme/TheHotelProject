@@ -102,3 +102,21 @@
       });
   });
 })(jQuery);
+
+// Place this code in main.js or the relevant frontend file
+document
+  .getElementById("checkAvailabilityBtn")
+  .addEventListener("click", async function () {
+    const roomNumber = 101; // example data
+    const customerName = "John Doe";
+    const bookingDate = new Date().toISOString();
+
+    const response = await fetch("/api/book-room", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ roomNumber, customerName, bookingDate }),
+    });
+
+    const result = await response.json();
+    alert(result.message); // Alerts "Booking successful!" if booking was successful
+  });
