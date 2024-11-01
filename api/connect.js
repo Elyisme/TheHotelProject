@@ -1,6 +1,6 @@
 // api/connect.js
 const mongoose = require("mongoose");
-require("dotenv").config({ path: "./backend/.env" });
+require("dotenv").config({ path: "../backend/.env" });
 
 // MongoDB connection function
 let isConnected;
