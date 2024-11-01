@@ -91,46 +91,37 @@
     type: "iframe",
   });
 
-  /*------------------
-        Check Availability Button Redirect
-    --------------------*/
-  document.addEventListener("DOMContentLoaded", function () {
-    document
-      .getElementById("checkAvailabilityBtn")
-      .addEventListener("click", function () {
-        window.location.href = "register.html"; // Redirects to the registration page
-      });
-  });
-})(jQuery);
-
+  
 /*------------------
     Check Availability Button Redirect
 --------------------*/
 document.addEventListener("DOMContentLoaded", function () {
-  document
-    .getElementById("checkAvailabilityBtn")
-    .addEventListener("click", async function () {
-      const roomNumber = 101; // Example room number, this can be dynamic based on user input
-      const customerName = "John Doe"; // You may want to get this from an input field
-      const bookingDate = new Date().toISOString(); // Example date, replace with actual date input from user
+  document.getElementById("checkAvailabilityBtn").addEventListener("click", async function () {
+    // Redirect to the registration page
+    window.location.href = "register.html"; // Redirects to the registration page
 
-      // Make the API call to book the room
-      try {
-        const response = await fetch("/api/book-room", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ roomNumber, customerName, bookingDate }),
-        });
+    // This part handles the room booking logic
+    const roomNumber = 101; // Example room number, this can be dynamic based on user input
+    const customerName = "John Doe"; // You may want to get this from an input field
+    const bookingDate = new Date().toISOString(); // Example date, replace with actual date input from user
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+    // Make the API call to book the room
+    try {
+      const response = await fetch("/api/book-room", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ roomNumber, customerName, bookingDate }),
+      });
 
-        const result = await response.json();
-        alert(result.message); // Alerts "Booking successful!" if booking was successful
-      } catch (error) {
-        console.error("Error booking room:", error);
-        alert("There was an error booking the room. Please try again.");
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-    });
+
+      const result = await response.json();
+      alert(result.message); // Alerts "Booking successful!" if booking was successful
+    } catch (error) {
+      console.error("Error booking room:", error);
+      alert("There was an error booking the room. Please try again.");
+    }
+  });
 });
